@@ -76,10 +76,86 @@ void GuessingGame1()
 
 }
 
-int main()
+void GuessingGame2()
 {
 
-	GuessingGame1();
+	srand(time(0));
+
+	//int ComNum = rand();
+	//int counter = 0;
+	//int ans = 0;
+
+	cout << "Welcome to the guessing game!" << endl;
+	cout << "Computer has chosen a random number between 1 - 500." << endl;
+	cout << "You have 8 chances to guess it." << endl;
+	cout << "Enter a number between 1 - 500 [ or press -1 to quit ]:" << endl;
+
+	for (int ComNum = ((rand() % 500) + 1), counter = 0, ans = 0; ans != -1 && counter < 8; counter++)
+	{
+		cin >> ans;
+		// If -1 ; quit
+		if (ans == -1)
+		{
+
+			cout << "Thanks for playing... try again later..." << endl;
+
+		}
+		// if < -1 or > 500, try again and counter goes down by 1
+		else if (ans < -1 || ans > 500 || ans == 0)
+		{
+
+			cout << "That was never an option... Try again..." << endl;
+			counter--;
+
+		}
+		// if > -1 and < comnum, too low
+		else if (ans > -1 && ans < ComNum)
+		{
+
+			if (counter < 7)
+			{
+
+				cout << "Too low, try again" << endl;
+
+			}
+			else if (counter == 7)
+			{
+
+				cout << "Game Over... You Lose..." << endl;
+
+			}
+		}
+		// if <= 500 and >> comnum, too high
+		else if (ans <= 500 && ans > ComNum)
+		{
+			if (counter < 7)
+			{
+
+				cout << "Too high, Try again" << endl;
+
+			}
+			else if (counter == 7)
+			{
+
+				cout << "Game Over... You Lose..." << endl;
+
+			}
+		}
+		// if answer is right, congratulate the player
+		else if (ans == ComNum)
+		{
+			cout << "Congrats, You Win!!!" << endl;
+			break;
+		}
+
+	}
+
+}
+
+int main()
+{
+	
+	GuessingGame2();
 
 	return 0;
 }
