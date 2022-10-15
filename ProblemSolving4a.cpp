@@ -13,7 +13,7 @@ int main()
 	// Computer initializes a seed and creates random number between 1 and 500
 	srand(time(0));
 	int computerNum = (rand() % 500) + 1;
-	
+
 	// Welcome the user
 	cout << "Welcome user. You will be playing a guessing game." << endl;
 
@@ -26,37 +26,60 @@ int main()
 	cout << "Let's start! guess a number or type in -1 to quit" << endl;
 
 	// either a while loop, do-while loop, or for loop is needed. let's just test them out.
+	// while loop works, but it improved on via a do-while loop as seen ahead.
 	int userNum = 0;
 	int counter = 0;
-	while (userNum != -1 && counter < 8)
+	do
 	{
 		counter++;
 
 		cin >> userNum;
-		if (userNum > computerNum)
+		if (userNum > computerNum && userNum < 501)
 		{
-			cout << "Too high, try again" << endl;
+			if (counter < 8)
+			{
+				cout << "Too high, try again" << endl;
+			}
+			else if (counter == 8)
+			{
+				cout << "Game Over, You lose" << endl;
+			}
 		}
 		else if (userNum < computerNum && userNum > -1)
 		{
-			cout << "Too low, try again" << endl;
+			if (counter < 8)
+			{
+				cout << "Too low, try again" << endl;
+			}
+			else if (counter == 8)
+			{
+				cout << "Game over, you lose" << endl;
+			}
 		}
 		else if (userNum == computerNum)
 		{
 			cout << "Nice, You got it!" << endl;
+			break;
 		}
 		else if (userNum == -1)
 		{
 			cout << "Thanks for playing... bye..." << endl;
 			break;
 		}
-		
-	}
+		else if (userNum < -1 || userNum > 500)
+		{
+			cout << "That was never an option. You get another chance." << endl;
+			counter--;
+		}
+
+	} 
+	while (userNum != -1 && counter < 8);
+	
 
 
 
 	// The user is asked to guess the number or press -1 to quit 
-	
+
 
 
 
