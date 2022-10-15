@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int main()
+void GuessingGame1()
 {
 
 	// Computer initializes a seed and creates random number between 1 and 500
@@ -72,17 +72,14 @@ int main()
 			counter--;
 		}
 
-	} 
-	while (userNum != -1 && counter < 8);
-	
+	} while (userNum != -1 && counter < 8);
 
+}
 
+int main()
+{
 
-	// The user is asked to guess the number or press -1 to quit 
-
-
-
-
+	GuessingGame1();
 
 	return 0;
 }
