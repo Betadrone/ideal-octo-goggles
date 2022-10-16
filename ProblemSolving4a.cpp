@@ -45,7 +45,7 @@ void GuessingGame1()
 				cout << "Game Over, You lose" << endl;
 			}
 		}
-		else if (userNum < computerNum && userNum > -1)
+		else if (userNum < computerNum && userNum > 0)
 		{
 			if (counter < 8)
 			{
@@ -66,7 +66,7 @@ void GuessingGame1()
 			cout << "Thanks for playing... bye..." << endl;
 			break;
 		}
-		else if (userNum < -1 || userNum > 500)
+		else if (userNum < -1 || userNum > 500 || userNum == 0)
 		{
 			cout << "That was never an option. You get another chance." << endl;
 			counter--;
@@ -154,8 +154,52 @@ void GuessingGame2()
 
 int main()
 {
+	enum GAME_TERMS
+	{
+		NONE,
+
+		YES,
+		NO,
+		GAME1,
+		GAME2,
+
+		NUM_GAME_TERMS
+	};
+
+	cout << "welcome, user. Do you want to play a game?\n1) yes\n2) no" << endl;
+	int answer = 0;
+	cin >> answer;
+
+	switch (answer)
+	{
+		case YES:
+		{	
+			cout << "Would you like to play: \n3) easy \nor \n4) hard" << endl;
+			cin >> answer;
+			switch (answer)
+			{
+				case GAME1:
+				{
+					GuessingGame1();
+					break;
+				}
+				case GAME2:
+				{
+					GuessingGame2();
+					break;
+				}
+				
+			}
+			break;
+		}
+		case NO:
+		{
+			cout << "Fine then. Have a nice day... :(" << endl;
+			break;
+		}
+	}
 	
-	GuessingGame2();
+	
 
 	return 0;
 }
