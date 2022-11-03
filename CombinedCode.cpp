@@ -20,6 +20,8 @@ int playerChoice = 0;
 unsigned int mp = 10; //Initial magic points
 bool repeat = false;
 float heroHpf = 20;
+bool pendant = false;
+int userInput = 0;
 
 void Intro();
 void bossMoves();
@@ -37,7 +39,6 @@ int main()
 
 	cout << "Would you like to play a text-based dungeon boss fight?" << endl;
 	cout << "(1) Yes (2) No" << endl;
-	int userInput = 0;
 	cin >> userInput;
 
 	while (userInput != 1 && userInput != 2)
@@ -69,7 +70,6 @@ void Intro()
 	cout << "What do you do?" << endl;
 	cout << "(1)Check the boss gate (2)Inspect the cove" << endl;
 
-	bool pendant = false;
 	int userInput = 0;
 	cin >> userInput;
 
