@@ -28,6 +28,8 @@ void bossMoves();
 void GiveOptions();
 void ManaOptions();
 void lowMana();
+void StatOverview(float num1, float num2);
+float stats(float heroH, float bossH, int heroM);
 
 
 int main()
@@ -103,6 +105,71 @@ void Intro()
 	}
 }
 
+float stats(float heroH, float bossH, int heroM)
+{
+	// Got the color codes from: https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html
+	cout << "Stat Overview" << endl;
+	cout << "---------------------" << endl;
+	if (bossH >= 31) // Green color next to hp
+	{
+		cout << "\u001b[42m" << "  " << "\u001b[40m" << " Hp: " << bossH << "/50 " << "\u001b[42m" << "  " << "\u001b[40m" << endl;
+	}
+	else if (bossH >= 30) // This is a repeat of the next else if statement, but does not include an extra space after the /20
+	{
+		cout << "\u001b[43m" << "  " << "\u001b[40m" << " Hp: " << bossH << "/50 " << "\u001b[43m" << "  " << "\u001b[40m" << endl;
+	}
+	else if (bossH >= 15) // Yellow colour next to hp
+	{
+		cout << "\u001b[43m" << "  " << "\u001b[40m" << " Hp: " << bossH << "/50  " << "\u001b[43m" << "  " << "\u001b[40m" << endl;
+	}
+	else if (bossH > 0) // Red colour next to hp
+	{
+		cout << "\u001b[41m" << "  " << "\u001b[40m" << " Hp: " << bossH << "/50  " << "\u001b[41m" << "  " << "\u001b[40m" << endl;
+	}
+	else // White color next to hp
+	{
+		cout << "\u001b[47m" << "  " << "\u001b[40m" << " Hp: " << bossH << "/50  " << "\u001b[47m" << "  " << "\u001b[40m" << endl;
+	}
+
+	cout << endl;
+	//cout << "Hero Hp:\t" << num2 << endl;
+
+	if (heroH >= 11) // Green color next to hp
+	{
+		cout << "\u001b[42m" << "  " << "\u001b[40m" << " Hp: " << heroH << "/20 " << "\u001b[42m" << "  " << "\u001b[40m" << endl;
+	}
+	else if (heroH >= 10) // This is a repeat of the next else if statement, but does not include an extra space after the /20
+	{
+		cout << "\u001b[43m" << "  " << "\u001b[40m" << " Hp: " << heroH << "/20 " << "\u001b[43m" << "  " << "\u001b[40m" << endl;
+	}
+	else if (heroH >= 6) // Yellow colour next to hp
+	{
+		cout << "\u001b[43m" << "  " << "\u001b[40m" << " Hp: " << heroH << "/20  " << "\u001b[43m" << "  " << "\u001b[40m" << endl;
+	}
+	else if (heroH > 0) // Red colour next to hp
+	{
+		cout << "\u001b[41m" << "  " << "\u001b[40m" << " Hp: " << heroH << "/20  " << "\u001b[41m" << "  " << "\u001b[40m" << endl;
+	}
+	else // White color next to hp
+	{
+		cout << "\u001b[47m" << "  " << "\u001b[40m" << " Hp: " << heroH << "/20  " << "\u001b[47m" << "  " << "\u001b[40m" << endl;
+	}
+
+	if (heroM == 10) // Blue color next to mp
+	{
+		cout << "\u001b[44m" << "  " << "\u001b[40m" << " Mp: " << heroM << "/10 " << "\u001b[44m" << "  " << "\u001b[40m" << endl;
+	}
+	else if (heroM > 0) // Also a blue color next to mp, but added an extra space so that the colors stay aligned to the hp color.
+	{
+		cout << "\u001b[44m" << "  " << "\u001b[40m" << " Mp: " << heroM << "/10  " << "\u001b[44m" << "  " << "\u001b[40m" << endl;
+	}
+	else // White color next to mp, to indicate that the player no longer has mp
+	{
+		cout << "\u001b[47m" << "  " << "\u001b[40m" << " Mp: " << heroM << "/10  " << "\u001b[47m" << "  " << "\u001b[40m" << endl;
+	}
+	return 0;
+}
+
 void StatOverview(float num1, float num2)
 {
 	cout << "Stat Overview" << endl;
@@ -132,7 +199,7 @@ void StatOverview(float num1, float num2)
 
 	cout << endl;
 	//cout << "Hero Hp:\t" << num2 << endl;
-	
+
 	if (heroHpf >= 11) // Green color next to hp
 	{
 		cout << "\u001b[42m" << "  " << "\u001b[40m" << " Hp: " << heroHpf << "/20 " << "\u001b[42m" << "  " << "\u001b[40m" << endl;
@@ -173,34 +240,34 @@ void StatOverview(float num1, float num2)
 void bossMoves()
 {
 
-		enum MOVES //This is for the options first presented to the pl
-		{
-			ATTACK = 1,
-			DEFEND,
-			MAGIC,
-			RUN
-		};
+	enum MOVES //This is for the options first presented to the pl
+	{
+		ATTACK = 1,
+		DEFEND,
+		MAGIC,
+		RUN
+	};
 
-		enum CHOICE
-		{
-			ENCHANT = 1,
-			DISABLE,
-			HEAL
-		};
+	enum CHOICE
+	{
+		ENCHANT = 1,
+		DISABLE,
+		HEAL
+	};
 
-		enum BOSS_ACTIONS
-		{
-			NONE,
+	enum BOSS_ACTIONS
+	{
+		NONE,
 
-			BOSS_ATTACK,
-			CHARGED_ATTACK,
-			BOSS_HEAL,
-			FLINCH,
+		BOSS_ATTACK,
+		CHARGED_ATTACK,
+		BOSS_HEAL,
+		FLINCH,
 
-			NUM_BOSS_ACTIONS,
-		};
+		NUM_BOSS_ACTIONS,
+	};
 
-	StatOverview(bossHpf, heroHpf);
+	stats(heroHpf, bossHpf, mp);
 
 	while (bossHpf > 0.0f && heroHpf > 0.0f)
 	{
@@ -384,12 +451,12 @@ void bossMoves()
 		}
 		}
 
-		
-		StatOverview(bossHpf, heroHpf);
+		stats(heroHpf, bossHpf, mp);
+
 
 	}
 
-	if (heroHpf <= 0 )
+	if (heroHpf <= 0)
 	{
 		cout << "You have died..." << endl;
 	}
