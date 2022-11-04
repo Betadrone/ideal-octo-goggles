@@ -12,23 +12,22 @@ using namespace std;
 #include <cctype>
 #include <windows.h>
 
-int bossAtk = 2; // Boss stats
-float bossHpf = 50;
-int heroMp = 10;
-bool bossEnrage = false;
 int playerChoice = 0;
-unsigned int mp = 10; //Initial magic points
-bool repeat = false;
-float heroHpf = 20;
-bool pendant = false;
 int userInput = 0;
+int bossAtk = 2; // Boss stats
+int heroMp = 10;
+unsigned int mp = 10; //Initial magic points
+float bossHpf = 50;
+float heroHpf = 20;
+bool bossEnrage = false;
+bool repeat = false;
+bool pendant = false;
 
 void Intro();
 void bossMoves();
 void GiveOptions();
 void ManaOptions();
 void lowMana();
-void StatOverview(float num1, float num2);
 float stats(float heroH, float bossH, int heroM);
 
 
@@ -54,6 +53,48 @@ int main()
 		system("cls");
 		Intro();
 		bossMoves();
+		if (heroHpf <= 0 && pendant == false)
+		{
+			cout << "You have died..." << endl;
+			cout << "You have lost this adventure..." << endl;
+		}
+		else if (bossHpf <= 0)
+		{
+			cout << "You have killed the boss" << endl;
+			cout << "You have won this adventure" << endl;
+		}
+		else if (heroHpf <= 0 && pendant == true)
+		{
+			cout << "You have died..." << endl;
+			system("pause");
+			system("cls");
+
+			cout << "But wait..." << endl;
+			cout << "The pendant begins to react with your lifeless body!" << endl;
+			system("pause");
+			system("cls");
+
+			cout << "The pendant disappears and in its place you are revived" << endl;
+			system("pause");
+			system("cls");
+
+			pendant = false;
+			heroHpf = 10;
+			heroMp = 5;
+
+			bossMoves();
+
+			if (heroHpf <= 0 && pendant == false)
+			{
+				cout << "You have died..." << endl;
+				cout << "You have lost this adventure..." << endl;
+			}
+			else if (bossHpf <= 0)
+			{
+				cout << "You have killed the boss" << endl;
+				cout << "You have won this adventure" << endl;
+			}
+		}
 	}
 	else if (userInput == 2)
 	{
@@ -72,7 +113,6 @@ void Intro()
 	cout << "What do you do?" << endl;
 	cout << "(1)Check the boss gate (2)Inspect the cove" << endl;
 
-	int userInput = 0;
 	cin >> userInput;
 
 	while (userInput != 1 && userInput != 2)
@@ -170,72 +210,6 @@ float stats(float heroH, float bossH, int heroM)
 	return 0;
 }
 
-void StatOverview(float num1, float num2)
-{
-	cout << "Stat Overview" << endl;
-	cout << "---------------------" << endl;
-	// cout << "Boss Hp:\t" << num1 << endl;
-
-	if (num1 >= 31) // Green color next to hp
-	{
-		cout << "\u001b[42m" << "  " << "\u001b[40m" << " Hp: " << num1 << "/50 " << "\u001b[42m" << "  " << "\u001b[40m" << endl;
-	}
-	else if (num1 >= 30) // This is a repeat of the next else if statement, but does not include an extra space after the /20
-	{
-		cout << "\u001b[43m" << "  " << "\u001b[40m" << " Hp: " << num1 << "/50 " << "\u001b[43m" << "  " << "\u001b[40m" << endl;
-	}
-	else if (num1 >= 15) // Yellow colour next to hp
-	{
-		cout << "\u001b[43m" << "  " << "\u001b[40m" << " Hp: " << num1 << "/50  " << "\u001b[43m" << "  " << "\u001b[40m" << endl;
-	}
-	else if (num1 > 0) // Red colour next to hp
-	{
-		cout << "\u001b[41m" << "  " << "\u001b[40m" << " Hp: " << num1 << "/50  " << "\u001b[41m" << "  " << "\u001b[40m" << endl;
-	}
-	else // White color next to hp
-	{
-		cout << "\u001b[47m" << "  " << "\u001b[40m" << " Hp: " << num1 << "/50  " << "\u001b[47m" << "  " << "\u001b[40m" << endl;
-	}
-
-	cout << endl;
-	//cout << "Hero Hp:\t" << num2 << endl;
-
-	if (heroHpf >= 11) // Green color next to hp
-	{
-		cout << "\u001b[42m" << "  " << "\u001b[40m" << " Hp: " << heroHpf << "/20 " << "\u001b[42m" << "  " << "\u001b[40m" << endl;
-	}
-	else if (heroHpf >= 10) // This is a repeat of the next else if statement, but does not include an extra space after the /20
-	{
-		cout << "\u001b[43m" << "  " << "\u001b[40m" << " Hp: " << heroHpf << "/20 " << "\u001b[43m" << "  " << "\u001b[40m" << endl;
-	}
-	else if (heroHpf >= 6) // Yellow colour next to hp
-	{
-		cout << "\u001b[43m" << "  " << "\u001b[40m" << " Hp: " << heroHpf << "/20  " << "\u001b[43m" << "  " << "\u001b[40m" << endl;
-	}
-	else if (heroHpf > 0) // Red colour next to hp
-	{
-		cout << "\u001b[41m" << "  " << "\u001b[40m" << " Hp: " << heroHpf << "/20  " << "\u001b[41m" << "  " << "\u001b[40m" << endl;
-	}
-	else // White color next to hp
-	{
-		cout << "\u001b[47m" << "  " << "\u001b[40m" << " Hp: " << heroHpf << "/20  " << "\u001b[47m" << "  " << "\u001b[40m" << endl;
-	}
-
-	if (mp == 10) // Blue color next to mp
-	{
-		cout << "\u001b[44m" << "  " << "\u001b[40m" << " Mp: " << mp << "/10 " << "\u001b[44m" << "  " << "\u001b[40m" << endl;
-	}
-	else if (mp > 0) // Also a blue color next to mp, but added an extra space so that the colors stay aligned to the hp color.
-	{
-		cout << "\u001b[44m" << "  " << "\u001b[40m" << " Mp: " << mp << "/10  " << "\u001b[44m" << "  " << "\u001b[40m" << endl;
-	}
-	else // White color next to mp, to indicate that the player no longer has mp
-	{
-		cout << "\u001b[47m" << "  " << "\u001b[40m" << " Mp: " << mp << "/10  " << "\u001b[47m" << "  " << "\u001b[40m" << endl;
-	}
-	system("pause");
-	system("cls");
-}
 
 void bossMoves()
 {
@@ -456,14 +430,7 @@ void bossMoves()
 
 	}
 
-	if (heroHpf <= 0)
-	{
-		cout << "You have died..." << endl;
-	}
-	else if (bossHpf <= 0)
-	{
-		cout << "You have killed the boss" << endl;
-	}
+	
 }
 void GiveOptions()
 {
