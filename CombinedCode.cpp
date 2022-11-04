@@ -38,7 +38,7 @@ void lowMana();
 void Shieldtxt();
 float stats(float heroH, float bossH, int heroM, bool rage);
 
-// Main Function Crackhead
+// Main Function 
 int main()
 {
 	Sleep(1500);
@@ -428,12 +428,32 @@ void gameplay()
 			{
 				if (shield == true)
 				{
+					if (bossEnrage == false)
+					{
+						cout << "[The Boss attacked fiercly...]" << endl;
+						cout << "[Boss dealt 2.25 dmg]" << endl;
+					}
+					else if (bossEnrage == true)
+					{
+						cout << "[The Boss attacked fiercly...]" << endl;
+						cout << "[Boss dealt 4.5 dmg]" << endl;
+					}
 					heroHpf -= chargeAtk / 2;
 					Shieldtxt();
 					cout << "-" << chargeAtk / 2 << " Hp" << endl;
 				}
 				else
 				{
+					if (bossEnrage == false)
+					{
+						cout << "[The Boss attacked fiercly...]" << endl;
+						cout << "[Boss dealt 4.5 dmg]" << endl;
+					}
+					else if (bossEnrage == true)
+					{
+						cout << "[The Boss attacked fiercly...]" << endl;
+						cout << "[Boss dealt 9 dmg]" << endl;
+					}
 					heroHpf -= chargeAtk;
 				}
 				charge = false;
@@ -444,7 +464,17 @@ void gameplay()
 				{
 				case BOSS_ATTACK:
 				{
+					if (bossEnrage == false)
+					{
 					cout << "[The Boss attacked the player normally...]" << endl;
+					cout << "[Boss dealt 2 dmg]" << endl;
+					}
+					else if (bossEnrage == true)
+					{
+						cout << "[The Boss attacked the player normally...]" << endl;
+						cout << "[Boss dealt 4 dmg]" << endl;
+					}
+
 					if (shield == true)
 					{
 						heroHpf -= (bossAtk / 2);
@@ -459,7 +489,7 @@ void gameplay()
 				}
 				case CHARGED_ATTACK:
 				{
-					cout << "[The Boss attacked the player fiercly...]" << endl;
+					cout << "[The Boss readies himself for smiting...]" << endl;
 					charge = true;
 					break;
 				}
