@@ -41,10 +41,10 @@ float stats(float heroH, float bossH, int heroM, bool rage);
 // Main Function 
 int main()
 {
-	Sleep(1500);
 
 	cout << "Hello user..." << endl;
-	system("pause");
+	
+	Sleep(1500);
 
 	cout << "Would you like to play a text-based dungeon boss fight?" << endl;
 	cout << "(1) Yes (2) No" << endl;
@@ -61,6 +61,7 @@ int main()
 		system("cls");
 		Intro();
 		gameplay();
+
 		if (heroHpf <= 0 && pendant == false)
 		{
 			cout << "You have died..." << endl;
@@ -153,10 +154,24 @@ void Intro()
 	}
 	system("pause");
 	system("cls");
+
 	cout << "As soon as you get close to the gate, it glows brightly and you find yourself teleported in front of an Orc like being" << endl;
 	system("pause");
 	system("cls");
+
 	cout << "You realize it's the boss..." << endl;
+	cout << "The boss let's out a war cry upon laying eyes on you..." << endl;
+	Sleep(1500);
+	cout << "Should you engage in battle? (yes or no)" << endl;
+	string ans;
+	if ((ans == "Yes" || ans == "yes"))
+	{
+		cout << "You face off with the boss head-on" << endl;
+	}
+	else
+	{
+		cout << "You couldn't escape..." << endl;
+	}
 }
 
 float stats(float heroH, float bossH, int heroM, bool rage)
@@ -252,7 +267,7 @@ void gameplay()
 	};
 
 
-	for (int i = 0; run == false && heroHpf > 0.0f; i++) // i is the temporary integer we will be using as a turn counter 
+	for (int i = 0; run == false && heroHpf > 0.0f && bossHpf > 0.0f; i++) // i is the temporary integer we will be using as a turn counter 
 	{
 		//Hero attacks
 		do
@@ -390,7 +405,7 @@ void gameplay()
 		{
 			cout << "You got away Safely" << endl;
 		}
-		else if (bossHpf > 0.0f)
+		else if (bossHpf <= 0.0f)
 		{
 
 		}
@@ -466,8 +481,8 @@ void gameplay()
 				{
 					if (bossEnrage == false)
 					{
-					cout << "[The Boss attacked the player normally...]" << endl;
-					cout << "[Boss dealt 2 dmg]" << endl;
+						cout << "[The Boss attacked the player normally...]" << endl;
+						cout << "[Boss dealt 2 dmg]" << endl;
 					}
 					else if (bossEnrage == true)
 					{
