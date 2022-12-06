@@ -9,6 +9,13 @@ struct color
 	float b[3];
 };
 
+struct simpleColor
+{
+	int red = 0;
+	int green = 0;
+	int blue = 0;
+};
+
 struct vehicle
 {
 	color purple;
@@ -25,6 +32,52 @@ struct phone
 	string model;
 	int year;
 	float screenSize;
+};
+
+class player
+{
+public:
+	player()
+	{
+		cout << "You are adding a new player" << endl;
+
+	}
+	void DetermineInfo()
+	{
+		cout << "enter name:" << endl;
+		cin >> name;
+		cout << "enter age:" << endl;
+		cin >> age;
+		cout << "choose occupation:\n1) Warrior\n2) Mage" << endl;
+		cin >> choice;
+		if (choice == 1)
+		{
+			occupation = "Warrior";
+		}
+		else if (choice == 2)
+		{
+			occupation = "Mage";
+		}
+	}
+	void PrintStats()
+	{
+		cout << "Stats" << endl;
+		cout << "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-" << endl;
+		cout << name << endl;
+		cout << age << endl;
+		cout << occupation << endl;
+	}
+	void PrintName()
+	{
+		cout << name;
+	}
+	string weapon[3];
+private:
+	string name;
+	int age = 0;
+	int choice;
+	string occupation;
+
 };
 
 class hero
@@ -69,6 +122,10 @@ private:
 	float health = 100.0f;
 };
 
+void SetColor(color& rgbValue);
+simpleColor getColor(int red, int green, int blue);
+
+
 int main()
 {
 	cout << "Welcome to Walkthrough 9... Objects..." << endl;
@@ -90,9 +147,6 @@ int main()
 	serena.PrintStats();
 
 	cout << endl;
-
-	//Objects
-		//Structs
 		
 	vehicle highlander;
 	highlander.make = "Mitsubishi";
@@ -122,33 +176,77 @@ int main()
 	cout << endl;
 
 
-	phone myPhone1;
-	myPhone1.name = "Samsung";
-	myPhone1.model = "S10";
-	myPhone1.year = 2019;
-	myPhone1.screenSize = 5.2;
+	phone myPhone[2]; // array of objects
+	myPhone[0].name = "Samsung";
+	myPhone[0].model = "S10";
+	myPhone[0].year = 2019;
+	myPhone[0].screenSize = 5.2;
 
-	cout << myPhone1.name << endl;
-	cout << myPhone1.model << endl;
-	cout << myPhone1.year << endl;
-	cout << myPhone1.screenSize << endl;
+	cout << myPhone[0].name << endl;
+	cout << myPhone[0].model << endl;
+	cout << myPhone[0].year << endl;
+	cout << myPhone[0].screenSize << endl;
 	cout << endl;
 
-	phone myPhone2;
-	myPhone2.name = "Lenovo";
-	myPhone2.model = "5 iii";
-	myPhone2.year = 2021;
-	myPhone2.screenSize = 5.1;
+	myPhone[1].name = "Lenovo";
+	myPhone[1].model = "5 iii";
+	myPhone[1].year = 2021;
+	myPhone[1].screenSize = 5.1;
 
-	cout << myPhone2.name << endl;
-	cout << myPhone2.model << endl;
-	cout << myPhone2.year << endl;
-	cout << myPhone2.screenSize << endl;
+	cout << myPhone[1].name << endl;
+	cout << myPhone[1].model << endl;
+	cout << myPhone[1].year << endl;
+	cout << myPhone[1].screenSize << endl;
 	cout << endl;
 
 	vehicle carolla = {2.55f, 8.7f, 5.1f,
 						2.55f, 8.7f, 5.1f,
 						2.55f, 8.7f, 5.1f, "Honda", 5, 2015, 250};
 
+	color darkBlue;
+	SetColor(darkBlue);
+
+	simpleColor green = getColor(19,57,38);
+	cout << "The rgb value of a shade of green is #" << green.red << green.green << green.blue << endl;
+
+	player one;
+	one.DetermineInfo();
+	one.PrintStats();
+	one.weapon[0] = "Sword";
+	one.weapon[1] = "Shield";
+	one.weapon[2] = "Bombs";
+
+	one.PrintName();
+	cout << " is wielding a " << one.weapon[0] << endl;
+
 	return 0;
+}
+
+void SetColor(color& rgbValue)
+{
+	for (int ii = 0; ii < 3; ii++)
+	{
+		rgbValue.r[ii] = { 1.2f };
+		rgbValue.g[ii] = { 2.4f };
+		rgbValue.b[ii] = { 3.6f };
+	}
+	cout << "The rgb values of this color are set to:" << endl;
+	for (int ii = 0; ii < 3; ii++)
+	{
+		cout << rgbValue.r[ii] << endl;
+		cout << rgbValue.g[ii] << endl;
+		cout << rgbValue.b[ii] << endl;
+	}
+}
+
+simpleColor getColor(int red, int green, int blue)
+{
+	simpleColor newColor;
+
+	newColor.red = red;
+	newColor.green = green;
+	newColor.blue = blue;
+
+	return newColor;
+
 }
